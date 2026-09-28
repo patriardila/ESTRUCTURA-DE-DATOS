@@ -1,1 +1,116 @@
+import java.util.Iterator;
+import java.util.LinkedList;
 
+/*
+ * CORRECCIÓN – Actividad CRUD con LinkedList (Semana 21-25 sept)
+ * Estudiante: SOLUCIÓN MODELO (docente)
+ * Archivo original: —
+ *
+ * Convenciones de los comentarios:
+ *   // CORRECCIÓN: ...  -> línea que tenías y se arregló
+ *   // COMPLETADO: ...  -> punto que faltaba y se agregó
+ *   (sin marca)         -> tu código original, se conservó
+ *
+ * Nota: se quitó la línea "package ..." para que compile directo con
+ * javac. En NetBeans puedes dejar tu package. El archivo debe llamarse
+ * igual que la clase pública: Main.java
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        // ===================== 1. CREAR =====================
+        LinkedList<String> materias = new LinkedList<>();
+        materias.add("Programación");
+        materias.add("Matemáticas");
+        materias.add("Inglés");
+        materias.add("Bases de Datos");
+        materias.add("Redes");
+        System.out.println("Lista inicial: " + materias);
+
+        // ===================== 2. AGREGAR =====================
+        materias.addFirst("Algoritmos");
+        System.out.println("\nAl inicio: " + materias);
+        materias.addLast("Inteligencia Artificial");
+        System.out.println("Al final: " + materias);
+        materias.add(2, "Estructura de Datos");
+        System.out.println("En la posición 2: " + materias);
+
+        // ===================== 3. CONSULTAR =====================
+        System.out.println("\nPosición 3: " + materias.get(3));
+        System.out.println("Primero: " + materias.getFirst());
+        System.out.println("Último: " + materias.getLast());
+        System.out.println("¿Contiene Inglés? " + materias.contains("Inglés"));
+        System.out.println("Posición de Bases de Datos: " + materias.indexOf("Bases de Datos"));
+
+        // ===================== 4. MODIFICAR =====================
+        System.out.println("\nAntes: " + materias);
+        int pos = materias.indexOf("Matemáticas");     // 1) localizar
+        if (pos != -1) {
+            materias.set(pos, "Matemáticas Aplicadas"); // 2) modificar
+        }
+        System.out.println("Después: " + materias);
+
+        // ===================== 5. ELIMINAR información =====================
+        // COMPLETADO: este punto no estaba en tu entrega.
+        materias.remove("Inglés");                       // eliminar por NOMBRE
+        System.out.println("\nDespués de eliminar Inglés por nombre: " + materias);
+
+        materias.remove(2);                           // eliminar por POSICIÓN
+        System.out.println("Después de eliminar la posición 2: " + materias);
+
+        materias.removeFirst();                       // eliminar el PRIMERO
+        System.out.println("Después de eliminar el primero: " + materias);
+
+        materias.removeLast();                        // eliminar el ÚLTIMO
+        System.out.println("Después de eliminar el último: " + materias);
+
+        // ===================== 6. RECORRER la colección =====================
+        // COMPLETADO: recorrido con for clásico (usa el índice i)
+        System.out.println("\nRecorrido con for:");
+        for (int i = 0; i < materias.size(); i++) {
+            System.out.println(i + ". " + materias.get(i));
+        }
+
+        // COMPLETADO: recorrido con for-each (no necesita índice)
+        System.out.println("\nRecorrido con for-each:");
+        for (String materia : materias) {
+            System.out.println("- " + materia);
+        }
+
+        // ===================== 7. CONTAR y verificar =====================
+        // COMPLETADO
+        System.out.println("\nCantidad de materias: " + materias.size());
+        if (materias.isEmpty()) {
+            System.out.println("La lista está vacía");
+        } else {
+            System.out.println("La lista contiene información");
+        }
+
+        // ===================== 8. ELIMINAR TODOS los elementos =====================
+        // COMPLETADO
+        materias.clear();
+        System.out.println("\nDespués de clear(): " + materias);
+        System.out.println("¿La lista quedó vacía? " + materias.isEmpty());
+
+        // ===================== RETO ADICIONAL =====================
+        // COMPLETADO: se usa Iterator porque NO se puede eliminar con remove()
+        // dentro de un for-each (lanza ConcurrentModificationException).
+        materias.add("Programación");
+        materias.add("Piloto Java");
+        materias.add("Redes");
+        materias.add("Piloto Python");
+        materias.add("Bases de Datos");
+        materias.add("Piloto Web");
+        System.out.println("\nLista para el reto: " + materias);
+
+        Iterator<String> it = materias.iterator();
+        while (it.hasNext()) {
+            String materia = it.next();
+            if (materia.startsWith("Piloto")) {
+                it.remove();
+            }
+        }
+        System.out.println("Sin las materias Piloto: " + materias);
+    }
+}
